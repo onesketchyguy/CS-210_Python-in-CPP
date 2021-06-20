@@ -1,6 +1,6 @@
 import re
 import string
-
+import os
 from collections import Counter
 
 def printHelloWorld():
@@ -15,6 +15,9 @@ def multiplyValue(x, y):
 def squareValue(v):
     return v * v
 
+def getFileExists(f):
+    return os.path.exists(f)
+
 def getFileContent(file):
     # open and read the contents of the file
     with open(file, 'r') as fo:
@@ -23,8 +26,11 @@ def getFileContent(file):
     # return the data retrieved
     return data
 
-def printWord(word, c):
-    print("{:12.12} |{: >4}| {}".format(word, c[word], '•' * int(c[word])))
+def getWordHist(word, c):
+    return "{:12.12} |{: >4}| {}".format(word, c[word], '•' * int(c[word]))
+
+def getWord(word, c):
+    return "{:12.12} {}".format(word, c[word])
 
 def getWordCount(file):
     data = getFileContent(file)  # read the file
@@ -37,14 +43,27 @@ def countWords(file):
     c = getWordCount(file)
 
     for word in c: # Format the data on screen
-        printWord(word, c)
+        print(getWord(word, c))
 
-def countWord(file, wordToFind):
-    print("Trying to open: {}".format(file))
-    print("Trying to find: {}".format(wordToFind))
+def createWordListFile(wordListFile, newFileName):
+    c = getWordCount(wordListFile)
 
+    with open(newFileName, 'w') as fo:
+        for word in c: # Format the data within the file
+            fo.write(getWord(word, c) + "\n")
+
+def printWordsHist(file):
     c = getWordCount(file)
 
     for word in c: # Format the data on screen
+        print(getWordHist(word, c))
+
+def countWord(file, wordToFind):
+    c = getWordCount(file)
+    count = 0
+
+    for word in c: # Format the data on screen
         if word == wordToFind:
-            printWord(word, c)
+            count = c[word]
+
+    return count

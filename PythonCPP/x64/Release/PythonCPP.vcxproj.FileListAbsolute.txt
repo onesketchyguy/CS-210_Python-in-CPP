@@ -1,1 +1,2 @@
 C:\Users\frres\source\repos\PythonCPP\x64\Release\PythonCPP.exe
+D:\repos\CS-210_Python-in-CPP\PythonCPP\x64\Release\PythonCPP.exe
